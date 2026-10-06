@@ -24,21 +24,38 @@ flowchart TD
 
 ## How To Try It Locally
 
-Clone the repo, create a virtual environment, install the dependencies, and start the app:
+Clone the repo first:
 
 ```bash
 git clone https://github.com/ACHYouth/Diviner.git
 cd Diviner
+```
+
+On macOS, use `python3`:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+python3 -m uvicorn app.main:app --reload
+```
+
+On Linux, this usually works:
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-On Windows PowerShell, activate the environment with:
+On Windows PowerShell:
 
 ```powershell
+python -m venv .venv
 .venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload
 ```
 
 Then open this in your browser:
