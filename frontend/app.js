@@ -10,9 +10,9 @@ async function boot() {
   try {
     const response = await fetch("/api/health");
     const data = await response.json();
-    statusLine.textContent = `${data.catalog_size} NOVELS LOADED`;
+    statusLine.textContent = `${data.catalog_size} novels ready`;
   } catch {
-    statusLine.textContent = "API OFFLINE";
+    statusLine.textContent = "Diviner is offline";
   }
 }
 
@@ -30,10 +30,10 @@ function esc(value) {
 }
 
 function renderRows(rows) {
-  count.textContent = `${rows.length} result${rows.length === 1 ? "" : "s"}`;
+  count.textContent = `${rows.length} match${rows.length === 1 ? "" : "es"}`;
 
   if (rows.length === 0) {
-    results.innerHTML = `<div class="card">No matches yet. Try a broader request.</div>`;
+    results.innerHTML = `<div class="card">No matches yet. Try describing a genre, trope, mood, or favorite story.</div>`;
     return;
   }
 
@@ -48,14 +48,14 @@ function renderRows(rows) {
             <div class="meta">${esc(novel.author)} | ${esc(novel.source)} | ${esc(novel.status)} | ${novel.chapters} chapters</div>
           </div>
           <div class="score">
-            <div>SIM ${formatPercent(row.similarity_score)}</div>
-            <div>RATE ${novel.rating.toFixed(1)}/5</div>
+            <div>Match ${formatPercent(row.similarity_score)}</div>
+            <div>Rating ${novel.rating.toFixed(1)}/5</div>
           </div>
         </div>
         <div class="tags">${tags.map((tag) => `<span class="tag">${esc(tag)}</span>`).join("")}</div>
         <p class="synopsis">${esc(novel.synopsis)}</p>
-        <p class="reasons">${esc(row.reasons.join(" | "))}</p>
-        <a href="${esc(novel.url)}" target="_blank" rel="noreferrer">Open source page</a>
+        <p class="reasons">Why it matched: ${esc(row.reasons.join(" | "))}</p>
+        <a href="${esc(novel.url)}" target="_blank" rel="noreferrer">Read on the source site</a>
       </article>
     `;
   }).join("");
