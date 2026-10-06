@@ -3,47 +3,47 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Webnovel Engine</title>
+    <title>Diviner</title>
     <link rel="stylesheet" href="/static/styles.css">
   </head>
   <body>
     <main class="shell">
       <section class="hero">
         <div>
-          <p class="eyebrow">WEBNOVEL RECOMMENDATION ENGINE</p>
-          <h1>Find the next story that actually matches your taste.</h1>
+          <p class="eyebrow">Diviner</p>
+          <h1>Find a webnovel that fits what you are in the mood for.</h1>
         </div>
-        <div class="status" id="status">BOOTING...</div>
+        <div class="status" id="status">Loading novels...</div>
       </section>
 
       <section class="terminal">
         <div class="bar">
-          <span>QUERY</span>
-          <span>v0.1</span>
+          <span>What do you wanna read next?</span>
+          <span>Diviner v0.1</span>
         </div>
         <form id="searchForm">
-          <textarea id="query" rows="4" placeholder="I want a completed academy progression fantasy with a smart main character"></textarea>
+          <textarea id="query" rows="4" placeholder="Tell Diviner the vibe, genre, tropes, or kind of main character you want."></textarea>
           <div class="controls">
             <label>
-              Sort
+              Rank results by
               <select id="sortBy">
-                <option value="similarity">Similarity</option>
-                <option value="rating">Rating</option>
+                <option value="similarity">Best match</option>
+                <option value="rating">Highest rating</option>
               </select>
             </label>
             <label>
-              Limit
+              Show
               <input id="limit" type="number" min="1" max="50" value="10">
             </label>
-            <button type="submit">RUN SEARCH</button>
+            <button type="submit">Find novels</button>
           </div>
         </form>
       </section>
 
       <section class="results">
         <div class="section-title">
-          <h2>Matches</h2>
-          <span id="count">0 results</span>
+          <h2>Your matches</h2>
+          <span id="count">0 matches</span>
         </div>
         <div id="results"></div>
       </section>
@@ -51,4 +51,3 @@
     <script src="/static/app.js"></script>
   </body>
 </html>
-
