@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Webnovel Engine</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">WEBNOVEL RECOMMENDATION ENGINE</p>
+          <h1>Find the next story that actually matches your taste.</h1>
+        </div>
+        <div class="status" id="status">BOOTING...</div>
+      </section>
+
+      <section class="terminal">
+        <div class="bar">
+          <span>QUERY</span>
+          <span>v0.1</span>
+        </div>
+        <form id="searchForm">
+          <textarea id="query" rows="4" placeholder="I want a completed academy progression fantasy with a smart main character"></textarea>
+          <div class="controls">
+            <label>
+              Sort
+              <select id="sortBy">
+                <option value="similarity">Similarity</option>
+                <option value="rating">Rating</option>
+              </select>
+            </label>
+            <label>
+              Limit
+              <input id="limit" type="number" min="1" max="50" value="10">
+            </label>
+            <button type="submit">RUN SEARCH</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="results">
+        <div class="section-title">
+          <h2>Matches</h2>
+          <span id="count">0 results</span>
+        </div>
+        <div id="results"></div>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+

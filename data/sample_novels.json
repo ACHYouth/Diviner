@@ -1,0 +1,81 @@
+[
+  {
+    "id": "royalroad-mother-of-learning",
+    "title": "Mother of Learning",
+    "author": "Nobody103",
+    "source": "RoyalRoad",
+    "url": "https://www.royalroad.com/fiction/21220/mother-of-learning",
+    "genres": ["Fantasy", "Progression Fantasy", "Mystery"],
+    "tags": ["time loop", "academy", "magic", "smart protagonist", "completed"],
+    "rating": 4.8,
+    "chapters": 108,
+    "status": "completed",
+    "synopsis": "A young mage repeats the same month and slowly uncovers a conspiracy while getting stronger through careful study."
+  },
+  {
+    "id": "royalroad-beware-of-chicken",
+    "title": "Beware Of Chicken",
+    "author": "Casualfarmer",
+    "source": "RoyalRoad",
+    "url": "https://www.royalroad.com/fiction/39408/beware-of-chicken",
+    "genres": ["Xianxia", "Slice of Life", "Comedy"],
+    "tags": ["cultivation", "farming", "cozy", "isekai", "anti power fantasy"],
+    "rating": 4.7,
+    "chapters": 300,
+    "status": "ongoing",
+    "synopsis": "A tired cultivator walks away from sect drama and builds a peaceful farm with warmth, humor, and strange spiritual growth."
+  },
+  {
+    "id": "royalroad-the-perfect-run",
+    "title": "The Perfect Run",
+    "author": "Maxime J. Durand",
+    "source": "RoyalRoad",
+    "url": "https://www.royalroad.com/fiction/36735/the-perfect-run",
+    "genres": ["Superhero", "Science Fiction", "Action"],
+    "tags": ["time loop", "witty protagonist", "superpowers", "completed", "fast paced"],
+    "rating": 4.6,
+    "chapters": 130,
+    "status": "completed",
+    "synopsis": "An immortal time looper tries to engineer the perfect outcome in a city full of unstable supers and old regrets."
+  },
+  {
+    "id": "webnovel-lord-of-the-mysteries",
+    "title": "Lord of the Mysteries",
+    "author": "Cuttlefish That Loves Diving",
+    "source": "Webnovel",
+    "url": "https://www.webnovel.com/book/lord-of-mysteries_11022733006234505",
+    "genres": ["Fantasy", "Mystery", "Steampunk"],
+    "tags": ["secret organizations", "ritual magic", "slow burn", "smart protagonist", "completed"],
+    "rating": 4.8,
+    "chapters": 1432,
+    "status": "completed",
+    "synopsis": "A transmigrator enters a gothic steampunk world of occult pathways, hidden gods, and layered conspiracies."
+  },
+  {
+    "id": "webnovel-shadow-slave",
+    "title": "Shadow Slave",
+    "author": "Guiltythree",
+    "source": "Webnovel",
+    "url": "https://www.webnovel.com/book/shadow-slave_22196546206090805",
+    "genres": ["Fantasy", "Dark Fantasy", "Action"],
+    "tags": ["weak to strong", "survival", "nightmare worlds", "clever protagonist", "ongoing"],
+    "rating": 4.7,
+    "chapters": 1900,
+    "status": "ongoing",
+    "synopsis": "A cynical young man receives a dangerous power and fights through nightmare trials in a bleak supernatural world."
+  },
+  {
+    "id": "webnovel-supreme-magus",
+    "title": "Supreme Magus",
+    "author": "Legion20",
+    "source": "Webnovel",
+    "url": "https://www.webnovel.com/book/supreme-magus_12820870105509205",
+    "genres": ["Fantasy", "Reincarnation", "Magic"],
+    "tags": ["reincarnation", "magic academy", "antihero", "research", "long story"],
+    "rating": 4.5,
+    "chapters": 3000,
+    "status": "ongoing",
+    "synopsis": "A reincarnated soul uses science-minded reasoning and magic research to rise through a brutal fantasy world."
+  }
+]
+
