@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Optional
 
 from app.models import Novel
 
@@ -10,7 +11,7 @@ CATALOG_DATA = ROOT / "data" / "catalog.json"
 
 
 class Catalog:
-    def __init__(self, path: Path | None = None):
+    def __init__(self, path: Optional[Path] = None):
         self.path = path or CATALOG_DATA
 
     def load(self) -> list[Novel]:
@@ -34,4 +35,3 @@ class Catalog:
         merged = sorted(novels.values(), key=lambda item: item.title.lower())
         self.save(merged)
         return merged
-
