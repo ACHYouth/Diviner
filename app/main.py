@@ -9,7 +9,7 @@ from app.models import Novel, RecommendationRequest, RecommendationResult
 from app.recommender import recommend
 
 
-app = FastAPI(title="Webnovel Recommendation Engine")
+app = FastAPI(title="Diviner")
 catalog = Catalog()
 
 frontend_dir = Path(__file__).resolve().parents[1] / "frontend"
