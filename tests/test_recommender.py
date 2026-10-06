@@ -42,3 +42,11 @@ def test_trope_query_can_find_cultivation_villain_story():
     rows = recommend("cultivation villain scheming", novels, "similarity", 3)
 
     assert rows[0].novel.title == "Reverend Insanity"
+
+
+def test_mood_query_can_find_horror_without_exact_genre_word():
+    novels = Catalog(SAMPLE_DATA).load()
+    rows = recommend("i wanna get spooked", novels, "similarity", 5)
+    titles = [row.novel.title for row in rows]
+
+    assert "My House of Horrors" in titles or "Pact" in titles

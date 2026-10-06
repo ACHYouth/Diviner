@@ -3,6 +3,7 @@ import re
 from collections import Counter
 
 from app.models import Novel, RecommendationResult
+from app.semantic import semantic_scores
 
 
 STOPWORDS = {
@@ -257,7 +258,26 @@ def score_novel(query: str, novel: Novel) -> RecommendationResult:
 
 
 def recommend(query: str, novels: list[Novel], sort_by: str = "similarity", limit: int = 10) -> list[RecommendationResult]:
-    results = [score_novel(query, novel) for novel in novels]
+    semantic = semantic_scores(query, novels)
+    results = []
+
+    for novel in novels:
+        rule_result = score_novel(query, novel)
+        semantic_score = semantic.get(novel.id, 0.0)
+        hybrid_score = min((semantic_score * 0.55) + (rule_result.similarity_score * 0.35) + (rule_result.rating_score * 0.10), 1.0)
+        reasons = list(rule_result.reasons)
+        if semantic_score >= 0.52:
+            reasons.insert(0, "semantic mood/theme match")
+
+        results.append(
+            RecommendationResult(
+                novel=novel,
+                similarity_score=round(hybrid_score, 3),
+                rating_score=rule_result.rating_score,
+                matched_terms=rule_result.matched_terms,
+                reasons=reasons[:4],
+            )
+        )
 
     if sort_by == "rating":
         results.sort(key=lambda item: (item.novel.rating, item.similarity_score), reverse=True)

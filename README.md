@@ -66,6 +66,14 @@ http://127.0.0.1:8000
 
 The page starts with sample data, so you can test the recommendation engine right away without scraping anything.
 
+For better meaning-based search, build local embeddings once after installing dependencies:
+
+```bash
+python3 scripts/build_embeddings.py
+```
+
+The first build may download the local sentence-transformer model. After that, searches like `i wanna get spooked` can match horror and supernatural novels even when you do not type the exact genre.
+
 Try a query like:
 
 ```text
@@ -83,19 +91,19 @@ pytest
 Expected result:
 
 ```text
-2 passed
+6 passed
 ```
 
 You can also do a quick backend check:
 
 ```bash
-python -c "from app.catalog import Catalog, SAMPLE_DATA; from app.recommender import recommend; novels=Catalog(SAMPLE_DATA).load(); rows=recommend('completed academy progression fantasy smart protagonist', novels); print(rows[0].novel.title)"
+python -c "from app.catalog import Catalog, SAMPLE_DATA; from app.recommender import recommend; novels=Catalog(SAMPLE_DATA).load(); rows=recommend('i wanna get spooked', novels); print(rows[0].novel.title)"
 ```
 
-Expected output:
+Expected output should be a horror or supernatural result, such as:
 
 ```text
-Mother of Learning
+My House of Horrors
 ```
 
 ## API
