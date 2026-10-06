@@ -72,7 +72,7 @@ For better meaning-based search, build local embeddings once after installing de
 python3 scripts/build_embeddings.py
 ```
 
-The first build may download the local sentence-transformer model. After that, searches like `i wanna get spooked` can match horror and supernatural novels even when you do not type the exact genre.
+This creates `data/embeddings.json` locally. After that, searches like `i wanna get spooked` can match horror and supernatural novels even when you do not type the exact genre.
 
 Try a query like:
 

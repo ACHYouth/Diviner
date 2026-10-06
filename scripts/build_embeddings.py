@@ -1,27 +1,23 @@
 import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from app.catalog import Catalog
-from app.semantic import EMBEDDINGS_DATA, MODEL_NAME, build_vectors
+from app.semantic import EMBEDDINGS_DATA, build_embedding_payload
 
 
 def main():
     novels = Catalog().load()
-    vectors = build_vectors(novels)
-    if not vectors:
-        raise SystemExit("Could not build embeddings. Install sentence-transformers first.")
+    payload = build_embedding_payload(novels)
 
     EMBEDDINGS_DATA.write_text(
-        json.dumps(
-            {
-                "model": MODEL_NAME,
-                "count": len(vectors),
-                "vectors": vectors,
-            },
-            indent=2,
-        ),
+        json.dumps(payload, indent=2),
         encoding="utf-8",
     )
-    print(f"built embeddings for {len(vectors)} novels at {EMBEDDINGS_DATA}")
+    print(f"built embeddings for {payload['count']} novels at {EMBEDDINGS_DATA}")
 
 
 if __name__ == "__main__":
