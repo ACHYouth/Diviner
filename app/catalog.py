@@ -8,6 +8,7 @@ from app.models import Novel
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLE_DATA = ROOT / "data" / "sample_novels.json"
+DEFAULT_SOURCE_LIMIT = 100
 
 
 class Catalog:
@@ -206,6 +207,44 @@ class Catalog:
                     """
                 )
             ]
+
+    def count_for_source(self, source: str) -> int:
+        with connect(self.path) as db:
+            row = db.execute(
+                """
+                SELECT COUNT(novels.id) AS total
+                FROM novels
+                JOIN sources ON sources.id = novels.source_id
+                WHERE sources.name = ?
+                """,
+                (source,),
+            ).fetchone()
+        return int(row["total"]) if row else 0
+
+    def log_ingestion_run(self, source: str, status: str, items_found: int, message: str = "") -> None:
+        with connect(self.path) as db:
+            db.execute(
+                """
+                INSERT INTO ingestion_runs (source, status, items_found, message, finished_at)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+                """,
+                (source, status, items_found, message),
+            )
+
+    def ensure_default_sources(self, limit: int = DEFAULT_SOURCE_LIMIT) -> None:
+        from app.scrapers.registry import SOURCES
+
+        for source_class in SOURCES.values():
+            source = source_class()
+            if self.count_for_source(source.name) >= limit:
+                continue
+
+            try:
+                novels = source.fetch(limit)
+                self.upsert_many(novels)
+                self.log_ingestion_run(source.name, "success", len(novels))
+            except Exception as exc:
+                self.log_ingestion_run(source.name, "failed", 0, str(exc))
 
     def ingestion_runs(self, limit: int = 10) -> list[dict]:
         with connect(self.path) as db:

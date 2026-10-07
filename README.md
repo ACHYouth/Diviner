@@ -37,13 +37,15 @@ The current version comes with sample data from RoyalRoad, Webnovel, Wuxiaworld,
 4. Choose whether to rank by best match or highest rating.
 5. Click `Find novels`.
 
-The app creates a local SQLite catalog automatically at `data/diviner.db`. To reset it with the bundled starter catalog, run:
+The app creates a local SQLite catalog automatically at `data/diviner.db`. When the app starts, it tries to fill the catalog with 100 novels from each supported source. The first launch can take longer because it is fetching source metadata.
+
+To reset it with the bundled starter catalog, run:
 
 ```bash
 python3 scripts/ingest_sample.py
 ```
 
-For better meaning-based search, build local embeddings after adding or changing novels:
+For faster meaning-based search, you can build local embeddings after the first run:
 
 ```bash
 python3 scripts/build_embeddings.py
@@ -66,8 +68,6 @@ On macOS, use `python3`:
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
-python3 scripts/ingest_sample.py
-python3 scripts/build_embeddings.py
 python3 -m uvicorn app.main:app --reload
 ```
 
@@ -77,8 +77,6 @@ On Linux, this usually works:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/ingest_sample.py
-python scripts/build_embeddings.py
 uvicorn app.main:app --reload
 ```
 
@@ -88,8 +86,6 @@ On Windows PowerShell:
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python scripts/ingest_sample.py
-python scripts/build_embeddings.py
 python -m uvicorn app.main:app --reload
 ```
 
@@ -109,9 +105,9 @@ Diviner currently uses a hybrid recommendation approach:
 - Rating as a small ranking signal
 - Explainable match reasons shown beside each result
 
-## Add More Novels
+## Add Or Refresh Novels
 
-Diviner can ingest public metadata from source adapters and store it in SQLite. By default, each source tries to fetch 100 novels:
+Diviner automatically tries to fetch 100 novels from each supported source when the app starts. You can also refresh a source manually:
 
 ```bash
 python3 scripts/ingest.py royalroad
@@ -120,7 +116,6 @@ python3 scripts/ingest.py ao3
 python3 scripts/ingest.py fanfiction
 python3 scripts/ingest.py webnovel
 python3 scripts/ingest.py all
-python3 scripts/build_embeddings.py
 ```
 
 You can still override the default when you want a smaller or larger import:

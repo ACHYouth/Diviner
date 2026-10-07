@@ -6,19 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from app.catalog import Catalog
-from app.db import connect
 from app.scrapers.registry import SOURCES
-
-
-def log_run(source: str, status: str, items_found: int, message: str = "") -> None:
-    with connect() as db:
-        db.execute(
-            """
-            INSERT INTO ingestion_runs (source, status, items_found, message, finished_at)
-            VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-            """,
-            (source, status, items_found, message),
-        )
 
 
 def ingest(source_name: str, limit: int) -> None:
@@ -37,10 +25,10 @@ def ingest(source_name: str, limit: int) -> None:
         try:
             novels = source.fetch(limit)
             catalog.upsert_many(novels)
-            log_run(source.name, "success", len(novels))
+            catalog.log_ingestion_run(source.name, "success", len(novels))
             print(f"{source.name}: saved {len(novels)} novels")
         except Exception as exc:
-            log_run(source.name, "failed", 0, str(exc))
+            catalog.log_ingestion_run(source.name, "failed", 0, str(exc))
             print(f"{source.name}: failed: {exc}")
 
 

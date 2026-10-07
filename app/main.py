@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Query
@@ -9,8 +10,16 @@ from app.models import Novel, RecommendationRequest, RecommendationResult
 from app.recommender import recommend
 
 
-app = FastAPI(title="Diviner")
 catalog = Catalog()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    catalog.ensure_default_sources()
+    yield
+
+
+app = FastAPI(title="Diviner", lifespan=lifespan)
 
 frontend_dir = Path(__file__).resolve().parents[1] / "frontend"
 app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
