@@ -23,7 +23,17 @@ def index():
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "catalog_size": len(catalog.load())}
+    return {"status": "ok", "catalog_size": len(catalog.load()), "sources": catalog.source_counts()}
+
+
+@app.get("/api/sources")
+def sources():
+    return catalog.source_counts()
+
+
+@app.get("/api/ingestion-runs")
+def ingestion_runs(limit: int = Query(default=10, ge=1, le=100)):
+    return catalog.ingestion_runs(limit)
 
 
 @app.get("/api/novels", response_model=list[Novel])
@@ -33,6 +43,8 @@ def novels(sort: str = Query(default="rating")):
         rows.sort(key=lambda item: item.title.lower())
     elif sort == "source":
         rows.sort(key=lambda item: (item.source.lower(), item.title.lower()))
+    elif sort == "popularity":
+        rows.sort(key=lambda item: item.popularity_score, reverse=True)
     else:
         rows.sort(key=lambda item: item.rating, reverse=True)
     return rows

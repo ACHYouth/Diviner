@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 *.pyc
 data/catalog.json
+data/diviner.db
+data/embeddings.json
 dist/
 node_modules/
-
