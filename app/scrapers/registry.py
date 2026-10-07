@@ -14,3 +14,9 @@ SOURCES = {
     "webnovel": WebnovelSource,
     "wuxiaworld": WuxiaworldSource,
 }
+
+STARTUP_SOURCES = {
+    "ao3": AO3Source,
+    "fanfiction": FanFictionSource,
+    "royalroad": RoyalRoadSource,
+}

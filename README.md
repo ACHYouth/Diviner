@@ -37,7 +37,7 @@ The current version comes with sample data from RoyalRoad, Webnovel, Wuxiaworld,
 4. Choose whether to rank by best match or highest rating.
 5. Click `Find novels`.
 
-The app creates a local SQLite catalog automatically at `data/diviner.db`. When the app starts, it tries to fill the catalog with 100 novels from each supported source. The first launch can take longer because it is fetching source metadata.
+The app creates a local SQLite catalog automatically at `data/diviner.db`. When the app starts, it tries to fill the catalog with 100 novels from each startup-supported source. Right now that means RoyalRoad, AO3, and FanFiction.net. The first launch can take longer because it is fetching source metadata.
 
 To reset it with the bundled starter catalog, run:
 
@@ -107,7 +107,7 @@ Diviner currently uses a hybrid recommendation approach:
 
 ## Add Or Refresh Novels
 
-Diviner automatically tries to fetch 100 novels from each supported source when the app starts. You can also refresh a source manually:
+Diviner automatically tries to fetch 100 novels each from RoyalRoad, AO3, and FanFiction.net when the app starts. You can also refresh a source manually:
 
 ```bash
 python3 scripts/ingest.py royalroad
@@ -128,12 +128,12 @@ Current source adapters:
 
 | Source | Status |
 | --- | --- |
-| RoyalRoad | Metadata ingestion from public listing pages |
-| ScribbleHub | Metadata ingestion from public ranking pages |
-| AO3 | Metadata ingestion from public work search |
-| FanFiction.net | Metadata ingestion scaffold from public category pages |
-| Webnovel | Existing adapter |
-| Wuxiaworld | Placeholder adapter until a clean metadata source is selected |
+| RoyalRoad | Startup ingestion, paginates public listing pages |
+| AO3 | Startup ingestion, paginates public work search |
+| FanFiction.net | Startup ingestion, paginates public category pages |
+| ScribbleHub | Adapter exists, but startup ingestion is disabled because Cloudflare blocks plain requests |
+| Webnovel | Placeholder until a stable public metadata path is selected |
+| Wuxiaworld | Placeholder until a clean metadata source is selected |
 
 `data/diviner.db` and `data/embeddings.json` are generated locally and ignored by git.
 

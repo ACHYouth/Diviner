@@ -232,9 +232,9 @@ class Catalog:
             )
 
     def ensure_default_sources(self, limit: int = DEFAULT_SOURCE_LIMIT) -> None:
-        from app.scrapers.registry import SOURCES
+        from app.scrapers.registry import STARTUP_SOURCES
 
-        for source_class in SOURCES.values():
+        for source_class in STARTUP_SOURCES.values():
             source = source_class()
             if self.count_for_source(source.name) >= limit:
                 continue
