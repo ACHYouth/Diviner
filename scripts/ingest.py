@@ -47,7 +47,7 @@ def ingest(source_name: str, limit: int) -> None:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("source", choices=sorted(list(SOURCES) + ["all"]))
-    parser.add_argument("--limit", type=int, default=25)
+    parser.add_argument("--limit", type=int, default=100, help="novels to request from each source, default: 100")
     args = parser.parse_args()
     ingest(args.source, args.limit)
 

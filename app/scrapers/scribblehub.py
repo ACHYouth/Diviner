@@ -9,7 +9,7 @@ class ScribbleHubSource(NovelSource):
     name = "ScribbleHub"
     base_url = "https://www.scribblehub.com"
 
-    def fetch(self, limit: int = 25) -> list[Novel]:
+    def fetch(self, limit: int = 100) -> list[Novel]:
         response = requests.get(
             f"{self.base_url}/series-ranking/",
             headers={"User-Agent": "Diviner metadata research bot"},

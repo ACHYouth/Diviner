@@ -111,16 +111,22 @@ Diviner currently uses a hybrid recommendation approach:
 
 ## Add More Novels
 
-Diviner can ingest public metadata from source adapters and store it in SQLite. Start small while testing:
+Diviner can ingest public metadata from source adapters and store it in SQLite. By default, each source tries to fetch 100 novels:
 
 ```bash
-python3 scripts/ingest.py royalroad --limit 50
-python3 scripts/ingest.py scribblehub --limit 50
-python3 scripts/ingest.py ao3 --limit 25
-python3 scripts/ingest.py fanfiction --limit 25
-python3 scripts/ingest.py webnovel --limit 25
-python3 scripts/ingest.py all --limit 10
+python3 scripts/ingest.py royalroad
+python3 scripts/ingest.py scribblehub
+python3 scripts/ingest.py ao3
+python3 scripts/ingest.py fanfiction
+python3 scripts/ingest.py webnovel
+python3 scripts/ingest.py all
 python3 scripts/build_embeddings.py
+```
+
+You can still override the default when you want a smaller or larger import:
+
+```bash
+python3 scripts/ingest.py all --limit 25
 ```
 
 Current source adapters:

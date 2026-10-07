@@ -11,7 +11,7 @@ class RoyalRoadSource(NovelSource):
     name = "RoyalRoad"
     base_url = "https://www.royalroad.com"
 
-    def fetch(self, limit: int = 25) -> list[Novel]:
+    def fetch(self, limit: int = 100) -> list[Novel]:
         response = requests.get(
             f"{self.base_url}/fictions/best-rated",
             headers={"User-Agent": "webnovel-recommender/0.1"},

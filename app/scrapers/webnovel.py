@@ -5,6 +5,5 @@ from app.scrapers.base import NovelSource
 class WebnovelSource(NovelSource):
     name = "Webnovel"
 
-    def fetch(self, limit: int = 25) -> list[Novel]:
+    def fetch(self, limit: int = 100) -> list[Novel]:
         return []
-

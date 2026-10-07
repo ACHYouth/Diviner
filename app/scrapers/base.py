@@ -8,7 +8,7 @@ class NovelSource(ABC):
     name: str
 
     @abstractmethod
-    def fetch(self, limit: int = 25) -> list[Novel]:
+    def fetch(self, limit: int = 100) -> list[Novel]:
         raise NotImplementedError
 
 

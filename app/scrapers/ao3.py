@@ -9,7 +9,7 @@ class AO3Source(NovelSource):
     name = "AO3"
     base_url = "https://archiveofourown.org"
 
-    def fetch(self, limit: int = 25) -> list[Novel]:
+    def fetch(self, limit: int = 100) -> list[Novel]:
         response = requests.get(
             f"{self.base_url}/works/search",
             params={

@@ -9,7 +9,7 @@ class FanFictionSource(NovelSource):
     name = "FanFiction.net"
     base_url = "https://www.fanfiction.net"
 
-    def fetch(self, limit: int = 25) -> list[Novel]:
+    def fetch(self, limit: int = 100) -> list[Novel]:
         response = requests.get(
             f"{self.base_url}/book/Harry-Potter/",
             params={"srt": "4", "r": "10"},
