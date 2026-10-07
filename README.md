@@ -1,28 +1,51 @@
 # Diviner
 
-A Python webapp for collecting webnovel metadata and recommending novels from natural language requests.
+Diviner helps you find webnovels based on what you actually feel like reading.
 
-The first build includes:
+Instead of only searching by exact genres, you can describe a mood, trope, character type, or story vibe in normal language. For example:
 
-- A FastAPI backend
-- A minimalist retro static UI
-- Sample RoyalRoad/Webnovel-style catalog data
-- Recommendation scoring by query similarity, genre match, tag match, and rating
-- Scraper adapter structure for RoyalRoad and Webnovel sources
-- API endpoints for searching, sorting, and future ingestion
-
-## Current Architecture
-
-```mermaid
-flowchart TD
-    UI["Retro Web UI"] --> API["FastAPI Backend"]
-    API --> Catalog["Catalog Store"]
-    API --> Rec["Recommendation Engine"]
-    Scrapers["Scraper Adapters"] --> Catalog
-    Catalog --> Data["JSON Data"]
+```text
+i wanna get spooked
 ```
 
-## How To Try It Locally
+```text
+completed academy progression fantasy with a smart main character
+```
+
+```text
+cozy cultivation story with farming
+```
+
+Diviner then ranks novels by how closely they match your request, while also showing each novel's rating and why it matched.
+
+## Why Use It
+
+Most webnovel discovery is annoying because you either need to know the exact title already or browse huge genre lists manually. Diviner is meant to work more like asking a friend:
+
+- Tell it the kind of story you want.
+- Get a ranked list of matching novels.
+- Sort by best match or highest rating.
+- Open the source page when something looks interesting.
+
+The current version comes with sample data from RoyalRoad, Webnovel, Wuxiaworld, ScribbleHub, and major web serials, so you can try it immediately.
+
+## How To Use It
+
+1. Start the app locally.
+2. Open `http://127.0.0.1:8000`.
+3. Type what you want to read.
+4. Choose whether to rank by best match or highest rating.
+5. Click `Find novels`.
+
+For better meaning-based search, build local embeddings once:
+
+```bash
+python3 scripts/build_embeddings.py
+```
+
+This creates `data/embeddings.json` locally. After that, searches like `i wanna get spooked` can match horror and supernatural novels even when you do not type the exact genre.
+
+## Installation
 
 Clone the repo first:
 
@@ -37,6 +60,7 @@ On macOS, use `python3`:
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
+python3 scripts/build_embeddings.py
 python3 -m uvicorn app.main:app --reload
 ```
 
@@ -46,6 +70,7 @@ On Linux, this usually works:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+python scripts/build_embeddings.py
 uvicorn app.main:app --reload
 ```
 
@@ -55,29 +80,34 @@ On Windows PowerShell:
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+python scripts/build_embeddings.py
 python -m uvicorn app.main:app --reload
 ```
 
-Then open this in your browser:
+Then open:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-The page starts with sample data, so you can test the recommendation engine right away without scraping anything.
+## How It Works
 
-For better meaning-based search, build local embeddings once after installing dependencies:
+Diviner currently uses a hybrid recommendation approach:
 
-```bash
-python3 scripts/build_embeddings.py
-```
+- Trope and keyword matching for specific requests like `completed`, `academy`, `cultivation`, or `villain protagonist`
+- Local semantic vectors for mood and meaning-based searches
+- Rating as a small ranking signal
+- Explainable match reasons shown beside each result
 
-This creates `data/embeddings.json` locally. After that, searches like `i wanna get spooked` can match horror and supernatural novels even when you do not type the exact genre.
+## Current Architecture
 
-Try a query like:
-
-```text
-I want a completed academy progression fantasy with a smart main character
+```mermaid
+flowchart TD
+    UI["Retro Web UI"] --> API["FastAPI Backend"]
+    API --> Catalog["Catalog Store"]
+    API --> Rec["Hybrid Recommender"]
+    Rec --> Vectors["Local Semantic Vectors"]
+    Catalog --> Data["JSON Data"]
 ```
 
 ## How To Test It
@@ -152,6 +182,7 @@ app/
   main.py
   models.py
   recommender.py
+  semantic.py
   scrapers/
 data/
   sample_novels.json
@@ -160,6 +191,7 @@ frontend/
   styles.css
   app.js
 scripts/
+  build_embeddings.py
   ingest_sample.py
 tests/
 ```
@@ -169,5 +201,5 @@ tests/
 1. Add real RoyalRoad ingestion through public pages or community API wrappers where permission is clear.
 2. Add Webnovel ingestion carefully because the site is more restrictive and dynamic.
 3. Store catalog data in SQLite or Postgres instead of JSON.
-4. Train a simple model after enough labeled preference data exists.
+4. Add user feedback like liked/disliked/clicked results for future model training.
 5. Split the frontend for Cloudflare Pages or GitHub Pages while hosting the API separately.
